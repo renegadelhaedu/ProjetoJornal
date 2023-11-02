@@ -123,14 +123,14 @@ def deletarNoticia2(nomeUsuario, DicionarioNoticia):
 
 
 def deletarNoticia(DicionarioNoticia):
-    for i, publicacao in enumerate(jornal["publicacoes"]):
+    for i, publicacao in enumerate(DicionarioNoticia["publicacoes"]):
         print(f'{i + 1}. {publicacao["titulo"]}')
     print('Escolha a publicação que deseja remover:')
     escolha = int(input())
-    if 1 <= escolha <= len(jornal["publicacoes"]):
+    if 1 <= escolha <= len(DicionarioNoticia["publicacoes"]):
         confirmacao = input('Tem certeza de que deseja remover esta notícia? (s/n): ')
         if confirmacao == 'S' or confirmacao == 's':
-            publicacao = jornal["publicacoes"].pop(escolha - 1)
+            publicacao = DicionarioNoticia["publicacoes"].pop(escolha - 1)
             print(f'A notícia {publicacao["titulo"]} foi removida com sucesso.')
         else:
             print('A remoção da notícia foi cancelada.')
