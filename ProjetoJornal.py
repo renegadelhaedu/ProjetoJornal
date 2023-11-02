@@ -8,14 +8,14 @@ tprint("CATOLICA   NOTICIAS'", font="chunky", chr_ignore=True)
 op = 0
 usuarios_lista = []
 jornal = {"publicacoes": []}
-
+print('askjdhakjshdkA HSKDJ Hasjh dkAHSASDSS')
 # programa principal
 while True:
 
     op = geral.menuprincipal()
 
     if op >= 5:
-        print('Opção Inválida!')
+        print('Opção Inválida pq eu quero !')
 
     if op == 1:
         menuAdm.cadastrarAdm(usuarios_lista)
