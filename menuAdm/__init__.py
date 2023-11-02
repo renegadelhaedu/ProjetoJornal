@@ -29,32 +29,35 @@ def criarNoticia(nomeUsuario, jornal):
         titulo = input('Digite o título da notícia: ')
         conteudo = input('Digite o conteúdo da notícia: ')
         nova_publicacao = {"titulo": titulo, "conteudo": conteudo, "comentarios": []}
-        jornal["publicacoes"].append(nova_publicacao)
+        if nomeUsuario in jornal.keys():
+            jornal[nomeUsuario].append(nova_publicacao)
+        else:
+            jornal[nomeUsuario] = [nova_publicacao]
         print('Notícia publicada com sucesso.')
 
         resp = ' '
         while resp not in 'SsNn':
             resp = input('Deseja adicionar outra publicação? [S/N]:  ')
         if resp == 'N' or resp == 'n':
-            exibirMenuAdm(nomeUsuario, jornal)
+            break
 
 def exibirMenuAdm(nomeUsuario, DicionarioNoticia):
-    print('[1] PUBLICAR NOTÍCIAS')
-    print('[2] EDITAR NOTÍCIAS')
-    print('[3] REMOVER NOTÍCIAS')
-    print('[4] SAIR')
-    op = int(input('Digite a sua opção: '))
 
-    if op == 1:
-       criarNoticia(nomeUsuario, DicionarioNoticia)
-    elif op == 2:
-        print('Criar def para editar noticia')
-        editarNoticia(DicionarioNoticia)
-    elif op == 3:
-        deletarNoticia(DicionarioNoticia)
-    elif op == 4:
-        breakpoint()
+    while(True):
+        print('[1] PUBLICAR NOTÍCIAS')
+        print('[2] EDITAR NOTÍCIAS')
+        print('[3] REMOVER NOTÍCIAS')
+        print('[4] SAIR')
+        op = int(input('Digite a sua opção: '))
 
+        if op == 1:
+           criarNoticia(nomeUsuario, DicionarioNoticia)
+        elif op == 2:
+            editarNoticia2(nomeUsuario, DicionarioNoticia)
+        elif op == 3:
+            deletarNoticia2(nomeUsuario, DicionarioNoticia)
+        elif op == 4:
+            break
 
 
 
@@ -76,6 +79,47 @@ def editarNoticia(nomeusuario, DicionarioNoticia):
         exibirMenuAdm(nomeusuario, DicionarioNoticia)
     else:
         print('Escolha de publicação inválida.')
+
+
+def editarNoticia2(nomeUsuario, jornalNoticias):
+
+    exibirNoticias(nomeUsuario, jornalNoticias)
+    indEditar = int(input('digite o numero da noticia'))
+    while (indEditar < 0 or indEditar >= len(jornalNoticias[nomeUsuario])):
+        indEditar = int(input('digite o numero da noticia'))
+
+    novotitulo = input('Digite o título da notícia: ')
+    novoconteudo = input('Digite o conteúdo da notícia: ')
+
+    jornalNoticias[nomeUsuario][indEditar]["titulo"] = novotitulo
+    jornalNoticias[nomeUsuario][indEditar]["conteudo"] = novoconteudo
+
+    print(jornalNoticias)
+
+def exibirNoticias(nomeUsuario, jornalNoticias):
+    if nomeUsuario in jornalNoticias.keys():
+
+        listnews = jornalNoticias[nomeUsuario]
+
+        for i in range(len(listnews)):
+            print(f'{i} - {listnews[i]["titulo"]}')
+            print(f'{listnews[i]["conteudo"]}\n')
+
+    else:
+        print('nao existe nenhuma noticia publicada por este usuario')
+
+
+def deletarNoticia2(nomeUsuario, DicionarioNoticia):
+    exibirNoticias(nomeUsuario, DicionarioNoticia)
+
+    indRemover = int(input('digite o numero da noticia'))
+    while (indRemover < 0 or indRemover >= len(DicionarioNoticia[nomeUsuario])):
+        indRemover = int(input('digite o numero da noticia'))
+
+    DicionarioNoticia[nomeUsuario].pop(indRemover)
+
+    print(DicionarioNoticia[nomeUsuario])
+
 
 
 def deletarNoticia(DicionarioNoticia):
